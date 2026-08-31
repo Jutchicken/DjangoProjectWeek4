@@ -1,0 +1,23 @@
+{% extends 'blog/Base.html' %}
+{% block title %}
+{{ category.title }}
+{% endblock %}
+{% block content %}
+    <h1>{{ category.name }}</h1>
+    <form action="{% url 'category_update' category.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" value="{{ category.name }}" placeholder="Category Name">
+        <button type="submit">Update</button>
+    </form>
+    <form action="{% url 'category_delete' category.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    {% for post in category.post_set.all %}
+        <p>
+            <a href="{%  url 'post_detail' post.id %}">
+                {{ post.title }}
+            </a>
+        </p>
+    {% endfor %}
+{% endblock %}
