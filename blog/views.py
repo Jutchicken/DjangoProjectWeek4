@@ -123,3 +123,12 @@ def register(request):
 
 def register_view(request):
     return render(request, 'blog/register.html')
+
+def like_dislike(request):
+    login_user = request.user
+    post = Post.objects.get(id=request.POST['post_id'])
+    if login_user in post.likes.all():
+        post.likes.remove(login_user)
+    else:
+        post.likes.add(login_user)
+    return redirect('post_detail_view', post.id)

@@ -2,7 +2,7 @@ from django.urls import path
 
 from blog.views import home, categories, posts, category_detail, post_detail, category_create, category_update, \
     category_delete, post_create, post_delete, PostList, PostList_Generic, PostDetail_Generic, PostCreateView, \
-    PostUpdateView, PostDeleteView, register_view, register
+    PostUpdateView, PostDeleteView, register_view, register, like_dislike
 
 urlpatterns = [
     path("", home, name="home"),
@@ -23,5 +23,6 @@ urlpatterns = [
     path("post_delete_view/<int:pk>/", PostDeleteView.as_view(), name="post_delete_view"),
     path("register_form/", register_view, name="register_form"),
     path("register/", register, name="register"),
+    path("like_dislike/", like_dislike, name="like_dislike"),
 
 ]
