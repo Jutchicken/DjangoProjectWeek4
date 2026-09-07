@@ -1,0 +1,15 @@
+{% extends 'blog/Base.html' %}
+{% block title %}
+    Post Update View
+{% endblock %}
+{% block content %}
+    <h1>Post Update View</h1>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit">Update</button>
+    </form>
+{% endblock %}
+

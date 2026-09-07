@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 
+# from blog.forms import PostCreateForm
 from blog.models import Category, Post, User
 
 
@@ -93,4 +94,32 @@ class PostCreateView(CreateView):
     model = Post
     template_name = 'blog/post_create_view.html'
     success_url = '/posts_list_view/'
+    # form_class = PostCreateForm
     fields = ['title', 'header_image', 'title_tag', 'author', 'body', 'snippet', 'category']
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/post_update_view.html'
+    success_url = '/posts_list_view/'
+    # form_class = PostCreateForm
+    #
+    #
+    fields = ['title', 'header_image', 'title_tag', 'body', 'snippet', 'category']
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_delete_view.html'
+    success_url = '/posts_list_view/'
+
+def register(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    email = request.POST['email']
+    user = User.objects.create_user(username=username, email=email)
+    user.set_password(password)
+    user.groups.add(1)
+    user.save()
+    return redirect('login')
+
+def register_view(request):
+    return render(request, 'blog/register.html')

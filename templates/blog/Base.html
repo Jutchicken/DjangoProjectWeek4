@@ -34,9 +34,27 @@
                 </li><li class="nav-item">
                   <a class="nav-link" href="{% url 'posts_template' %}">Posts Template</a>
                 </li>
+                  {% if not user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register_form' %}">Register</a>
+                    </li>
+                  {% else %}
+                  <li class="nav-item">
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                      {{ user.username }}
+                    <button type="submit">Logout</button>
+                  </form>
+                </li>
+                  {% endif %}
+
+
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
+                    Post Views
                   </a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'posts_list_view' %}">Posts List View</a></li>

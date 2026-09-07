@@ -4,6 +4,7 @@
 {% endblock %}
 {% block content %}
     <h1>Post Detail View</h1>
+    <a href="{% url 'post_update_view' object.id %}">Update</a>
     <p>
         {{ object.title }}
     </p>
